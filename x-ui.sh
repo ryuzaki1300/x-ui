@@ -94,7 +94,7 @@ before_show_menu() {
 }
 
 install() {
-    bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+    bash <(install.sh)
     if [[ $? == 0 ]]; then
         if [[ $# == 0 ]]; then
             start
@@ -113,7 +113,7 @@ update() {
         fi
         return 0
     fi
-    bash <(curl -Ls https://github.com/ryuzaki1300/x-ui.git/master/install.sh)
+    bash <(curl -Ls install.sh)
     if [[ $? == 0 ]]; then
         LOGI "更新完成，已自动重启面板 "
         exit 0
@@ -504,28 +504,28 @@ show_usage() {
 show_menu() {
     echo -e "
   ${green}x-ui 面板管理脚本${plain}
-  ${green}0.${plain} 退出脚本
+  ${green}0.${plain} cancel
 ————————————————
-  ${green}1.${plain} 安装 x-ui
-  ${green}2.${plain} 更新 x-ui
-  ${green}3.${plain} 卸载 x-ui
+  ${green}1.${plain} check_uninstall && install x-ui
+  ${green}2.${plain} check_install && update x-ui
+  ${green}3.${plain} check_install && uninstall x-ui
 ————————————————
-  ${green}4.${plain} 重置用户名密码
-  ${green}5.${plain} 重置面板设置
-  ${green}6.${plain} 设置面板端口
-  ${green}7.${plain} 查看当前面板设置
+  ${green}4.${plain} check_install && reset_user
+  ${green}5.${plain} check_install && reset_config
+  ${green}6.${plain} check_install && set_port
+  ${green}7.${plain} check_install && check_config
 ————————————————
-  ${green}8.${plain} 启动 x-ui
-  ${green}9.${plain} 停止 x-ui
-  ${green}10.${plain} 重启 x-ui
-  ${green}11.${plain} 查看 x-ui 状态
-  ${green}12.${plain} 查看 x-ui 日志
+  ${green}8.${plain} check_install && start x-ui
+  ${green}9.${plain} check_install && stop x-ui
+  ${green}10.${plain} check_install && restart x-ui
+  ${green}11.${plain} check_install && status x-ui 状态
+  ${green}12.${plain} check_install && show_log x-ui 日志
 ————————————————
-  ${green}13.${plain} 设置 x-ui 开机自启
-  ${green}14.${plain} 取消 x-ui 开机自启
+  ${green}13.${plain} enable x-ui 开机自启
+  ${green}14.${plain} disable x-ui 开机自启
 ————————————————
-  ${green}15.${plain} 一键安装 bbr (最新内核)
-  ${green}16.${plain} 一键申请SSL证书(acme申请)
+  ${green}15.${plain} install_bbr bbr (最新内核)
+  ${green}16.${plain} ssl_cert_issue(acme申请)
  "
     show_status
     echo && read -p "请输入选择 [0-16]: " num
