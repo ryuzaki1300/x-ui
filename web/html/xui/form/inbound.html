@@ -1,6 +1,9 @@
 {{define "form/inbound"}}
 <!-- base -->
 <a-form layout="inline">
+    <a-form-item label='{{ i18n "Exp" }}'>
+        <a-input id="expDate" v-model="inbound.expDate" @change="setRemark"></a-input>
+    </a-form-item>
     <a-form-item label='{{ i18n "remark" }}'>
         <a-input v-model.trim="dbInbound.remark"></a-input>
     </a-form-item>
